@@ -1,13 +1,13 @@
 [submodule "Final-ml"]
 	path = Final-ml
 	url = https://github.com/DibiDibiDeep/Final-ml.git
-	branch = ml-1
+	branch = feature/insu
 [submodule "Final-back"]
 	path = Final-back
 	url = https://github.com/DibiDibiDeep/Final-back.git
-	branch = back-1
+	branch = feature/insu
 [submodule "Final-front"]
 	path = Final-front
 	url = https://github.com/DibiDibiDeep/Final-front.git
-	branch = front-1
+	branch = feature/insu
 
