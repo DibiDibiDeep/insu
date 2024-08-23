@@ -1,0 +1,39 @@
+services:
+  backend:
+    build: ./Final-back
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./Final-back:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db/${MYSQL_DATABASE}
+  
+  frontend:
+    build: ./Final-front
+    ports:
+      - "80:80"
+  
+  db:
+    platform: linux/arm64
+    image: mysql
+    restart: always
+    environment:
+      - DATABASE_URL=mysql://insu:123@db/clickdb
+
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
